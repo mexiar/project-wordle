@@ -33,6 +33,8 @@ function GuessInput({ guessList, setGuessList, answer }) {
         disabled={guessList.length >= NUM_OF_GUESSES_ALLOWED}
         type="text"
         value={guess}
+        pattern="[a-zA-Z]{5}"
+        title="5 letter word"
         maxLength={5}
         style={{ textTransform: "uppercase" }}
         onChange={(event) => {
