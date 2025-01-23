@@ -1,6 +1,7 @@
 import React from "react";
+import { NUM_OF_GUESSES_ALLOWED } from "/src/constants.js";
 
-function GuessInput() {
+function GuessInput({ guessList, setGuessList, answer }) {
   const [guess, setGuess] = React.useState("");
 
   function handleSubmit(event) {
@@ -9,7 +10,18 @@ function GuessInput() {
       window.alert("Debes ingrear al menos 5 letras");
       return;
     }
-    console.log(guess);
+
+    if (guessList.includes(guess)) {
+      window.alert("Ya has ingresado esta palabra");
+      return;
+    }
+
+    if (guessList.length >= NUM_OF_GUESSES_ALLOWED) {
+      window.alert("Ya has ingresado el máximo de 6 palabras");
+      return;
+    }
+
+    setGuessList([...guessList, guess]);
     setGuess("");
   }
 
@@ -18,6 +30,7 @@ function GuessInput() {
       <label htmlFor="guess-input">Enter guess:</label>
       <input
         id="guess-input"
+        disabled={guessList.length >= NUM_OF_GUESSES_ALLOWED}
         type="text"
         value={guess}
         maxLength={5}
